@@ -1,0 +1,326 @@
+*
+{
+	margin: 0px;
+    box-sizing: border-box;
+	cursor: default;
+}
+
+html
+{
+	height: 100%;
+}
+
+body
+{
+	height: 100%;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	background-color: #ccc;
+	background: radial-gradient(circle farthest-side, #fff, #ccc);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+    animation: fadein 2s;
+	overflow-y: scroll;
+}
+
+.nav-container
+{
+	display: inline-block;
+	position: fixed;
+	top: 0px;
+	z-index: 1;
+	width: 100%;
+	background-image: url(resources/nav.svg) no-repeat 100% 100%;
+	filter: drop-shadow(0px 0px 3px #333);
+	-webkit-filter: drop-shadow(0px 0px 3px #333);
+}
+
+nav
+{
+	width: 100%;
+    padding: 20px 20px 30px 20px;
+    text-align: center;
+    font-size: 28px;
+    text-shadow: 0px 0px 8px black;
+    color: white;
+	background-color: #06f;
+	background-image: radial-gradient(circle at 25% 0%, rgba(255, 255, 255, .4), transparent);
+	mask: url(resources/nav.svg) no-repeat 100% 100%;
+	-webkit-mask: url(resources/nav.svg) no-repeat 100% 100%;
+	mask-size: cover;
+	-webkit-mask-size: cover;
+	transition: all .5s;
+	user-select: none;
+}
+
+.logo
+{
+	float: left;
+	clear: both;
+}
+
+nav.nav-maps
+{
+	background-color: #06f;
+	background-image: radial-gradient(circle at 25% 0%, rgba(255, 255, 255, .4), transparent);
+}
+
+nav.nav-data
+{
+	background-color: #4b1;
+	background-image: radial-gradient(circle at 25% 0%, rgba(255, 255, 255, .3), transparent);
+}
+
+nav.nav-about
+{
+	background-color: #d61;
+	background-image: radial-gradient(circle at 25% 0%, rgba(255, 255, 255, .3), transparent);
+}
+
+/* clear floats */
+nav:after
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.nav-inner-container
+{
+	float: right;
+}
+
+.nav-inner-container:after
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.nav-inner-container a
+{
+	float: left;
+    margin: 0px 15px;
+	padding: 3px;
+	color: white;
+	text-decoration: none;
+	transition: text-shadow 0.2s;
+	cursor: pointer;
+}
+
+.nav-inner-container a:hover
+{
+    text-shadow: 0px 0px 8px white;
+}
+
+.inset-shadow
+{
+	box-shadow: inset 0 0 4px #333;
+	-moz-box-shadow: inset 0 0 4px #333;
+	-webkit-box-shadow: inset 0 0 4px #333;
+}
+
+.content-container
+{
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 0;
+	width: 1000px;
+	min-height: 100%;
+	margin: auto;
+	padding: 100px 0px;
+	background: white;
+}
+
+content
+{
+	display: none;
+	visibility: hidden;
+	width: 100%;
+	background: white;
+}
+
+h1, h2, h3
+{
+	padding: 20px 40px;
+	font-family: Verdana, Geneva, sans-serif;
+	color: black;
+}
+
+p
+{
+	padding: 20px 40px 0px;
+	color: black;
+}
+
+.map-container
+{
+	float: left;
+	width: 1000px;
+	height: 500px;
+	margin: 20px 0px;
+	padding: 0px;
+}
+
+.map-container:after
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+sidebar
+{
+    
+}
+
+footer
+{
+	position: fixed;
+	bottom: 0px;
+	z-index: 1;
+	width: 100%;
+	height: 50px;
+    padding: 0px 20px;
+    background-color: #999;
+	box-shadow: 0 0 8px #333;
+	-moz-box-shadow: 0 0 8px #333;
+	-webkit-box-shadow: 0 0 8px #333;
+	user-select: none;
+}
+
+footer:after
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+footer div
+{
+	float: left;
+	width: 40%;
+	height: 100%;
+	padding: 12px 0px;
+    color: white;
+}
+
+footer a
+{
+    color: white;
+    text-shadow: 0px 0px 8px black;
+	transition: text-shadow 0.2s;
+	cursor: pointer;
+}
+
+footer a:hover
+{
+    text-shadow: 0px 0px 8px white;
+}
+
+footer a img
+{
+	filter: drop-shadow(0px 0px 8px black);
+	-webkit-filter: drop-shadow(0px 0px 8px black);
+	transition: filter 0.2s;
+}
+
+footer a:hover > img
+{
+	filter: drop-shadow(0px 0px 8px white);
+	-webkit-filter: drop-shadow(0px 0px 8px white);
+}
+
+.info
+{
+	float: none;
+	margin: auto;
+	text-align: center;
+}
+
+.info img
+{
+	position: relative;
+	z-index: 1;
+	filter: drop-shadow(0px 0px 8px black);
+	-webkit-filter: drop-shadow(0px 0px 8px black);
+	transition: all 0.2s;
+}
+
+.info img:hover
+{
+	filter: drop-shadow(0px 0px 8px white);
+	-webkit-filter: drop-shadow(0px 0px 8px white);
+}
+
+.modal
+{
+    display: none;
+    position: fixed;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+	padding: 0px;
+	animation: fadeout 1s;
+}
+
+.info img:hover ~ .modal
+{
+	display: block;
+	background-color: rgba(0, 0, 0, 0.5);
+	animation: fadein 1s;
+}
+
+.signin-container
+{
+	float: right;
+}
+
+.signin-container div
+{
+	float: right;
+	background: #ccc;
+}
+
+.signin
+{
+	
+}
+
+#map
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: #999;
+}
+
+/* responsive layout for small screens */
+@media (max-width: 600px)
+{
+    sidebar, main {
+        width: 100%;
+        height: auto;
+    }
+    
+    nav div {
+    	float: none;
+    	width: auto;
+    }
+}
+
+@keyframes fadein
+{
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes fadeout
+{
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
