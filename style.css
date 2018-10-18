@@ -73,7 +73,7 @@ nav.nav-data
 nav.nav-about
 {
 	background-color: #d61;
-	background-image: radial-gradient(circle at 25% 0%, rgba(255, 255, 255, .3), transparent);
+	background-image: radial-gradient(circle at 25% 0%, rgba(255, 255, 255, .2), transparent);
 }
 
 /* clear floats */
@@ -130,7 +130,7 @@ nav:after
 	width: 1000px;
 	min-height: 100%;
 	margin: auto;
-	padding: 100px 0px;
+	padding: 140px 0px;
 	background: white;
 }
 
@@ -152,6 +152,8 @@ h1, h2, h3
 p
 {
 	padding: 20px 40px 0px;
+	text-align: justify;
+	text-justify: inter-character;
 	color: black;
 }
 
@@ -169,6 +171,24 @@ p
     content: "";
     display: table;
     clear: both;
+}
+
+.content-img
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 60%;
+	padding: 20px;
+}
+
+.content-img img
+{
+	display: block;
+	max-width: 100%;
+	max-height: 100%;
+	margin: auto;
+	padding: 0px;
 }
 
 sidebar
@@ -278,17 +298,16 @@ footer a:hover > img
 .signin-container
 {
 	float: right;
+	padding: 7px 0px;
 }
 
 .signin-container div
 {
 	float: right;
+	width: 120px;
+	height: 36px;
+	padding: 0px;
 	background: #ccc;
-}
-
-.signin
-{
-	
 }
 
 #map

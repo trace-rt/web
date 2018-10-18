@@ -16,6 +16,17 @@ $(document).ready(function()
 			});
 	});
 
+//Firebase
+ var config = {
+    apiKey: "AIzaSyC0ORRsYb0e3H-I2IAz-qBbgqInm-Ra3sI",
+    authDomain: "vehicle-blackbox.firebaseapp.com",
+    databaseURL: "https://vehicle-blackbox.firebaseio.com",
+    projectId: "vehicle-blackbox",
+    storageBucket: "vehicle-blackbox.appspot.com",
+    messagingSenderId: "1033879747763"
+  };
+  //firebase.initializeApp(config);
+
 //Google SignIn
 var googleUser = {};
 var startApp = function() {
@@ -27,23 +38,10 @@ gapi.load('auth2', function(){
 	// Request scopes in addition to 'profile' and 'email'
 	//scope: 'additional_scope'
   });
-  attachSignin(document.getElementById('customBtn'));
 });
 };
 
-function attachSignin(element) {
-console.log(element.id);
-auth2.attachClickHandler(element, {},
-	function(googleUser) {
-	  document.getElementById('name').innerText = "Signed in: " +
-		  googleUser.getBasicProfile().getName();
-	}, function(error) {
-	  alert(JSON.stringify(error, undefined, 2));
-	});
-}
-
 //Google Maps
-
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to

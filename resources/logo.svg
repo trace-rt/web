@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="96.540001"
+   height="81.540001"
+   version="1.1"
+   id="svg44"
+   sodipodi:docname="logo_static.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:export-filename="C:\Users\Jared\Documents\School\CSCE 482\logo_static.png"
+   inkscape:export-xdpi="193.08313"
+   inkscape:export-ydpi="193.08313">
+  <metadata
+     id="metadata50">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs48">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4606">
+      <stop
+         style="stop-color:#00ff00;stop-opacity:1;"
+         offset="0"
+         id="stop4602" />
+      <stop
+         style="stop-color:#00ff00;stop-opacity:0;"
+         offset="1"
+         id="stop4604" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4598">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop4594" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop4596" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4598"
+       id="linearGradient4600"
+       x1="-5e-007"
+       y1="35.999947"
+       x2="87.500107"
+       y2="35.999947"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4606"
+       id="linearGradient4608"
+       x1="-5e-007"
+       y1="35.999947"
+       x2="87.500107"
+       y2="35.999947"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter9147"
+       x="-0.054827586"
+       width="1.1096551"
+       y="-0.066250004"
+       height="1.1325001">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9875"
+         id="feGaussianBlur9149" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1017"
+     id="namedview46"
+     showgrid="false"
+     inkscape:measure-start="99.1617,454.283"
+     inkscape:measure-end="63.8397,409.355"
+     inkscape:zoom="9.9937759"
+     inkscape:cx="69.800096"
+     inkscape:cy="41.276315"
+     inkscape:window-x="1672"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer3" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2"
+     transform="translate(0.68986643,1.8548492)">
+    <g
+       style="display:inline;opacity:0.75;fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-opacity:1;filter:url(#filter9147)"
+       transform="translate(16.391454,21.169868)"
+       id="g42-5">
+      <title
+         id="title31-1">Layer 1</title>
+      <rect
+         id="svg_1-6"
+         height="9"
+         width="40"
+         y="-18.254717"
+         x="-12.31132"
+         style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-opacity:1" />
+      <rect
+         id="svg_2-4"
+         height="72"
+         width="9"
+         y="-18.254717"
+         x="18.688679"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         id="svg_3-6"
+         height="9"
+         width="25"
+         y="44.745281"
+         x="18.688679"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         id="svg_4-4"
+         height="72"
+         width="9"
+         y="-18.254717"
+         x="34.688679"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         id="svg_5-6"
+         height="9"
+         width="18.200001"
+         y="-18.254717"
+         x="34.688679"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         d="m 52.688679,-13.754717 c 0,0 18,0 18,18.0000001 0,0 0,17.9999999 -18,17.9999999"
+         id="svg_6-6"
+         inkscape:connector-curvature="0"
+         style="fill:#000000;fill-opacity:0.00291969;stroke:#00ff00;stroke-width:9;stroke-opacity:1" />
+      <rect
+         stroke-linejoin="null"
+         stroke-linecap="null"
+         x="50.688679"
+         y="17.745283"
+         width="9"
+         height="15.7193"
+         id="svg_7-3"
+         style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         stroke-linejoin="null"
+         stroke-linecap="null"
+         x="65.688683"
+         y="44.745281"
+         width="9"
+         height="9"
+         id="svg_8-4"
+         style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         id="svg_9-1"
+         height="24.934031"
+         width="9"
+         y="59.518536"
+         x="12.173179"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="rotate(-45)" />
+    </g>
+  </g>
+  <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Layer 1"
+     style="display:inline"
+     transform="translate(0.68986643,1.8548492)">
+    <g
+       id="g42">
+      <title
+         id="title31">Layer 1</title>
+      <rect
+         id="svg_1"
+         height="9"
+         width="40"
+         y="0"
+         x="0"
+         style="fill:#000000;stroke:#000000;stroke-width:0" />
+      <rect
+         id="svg_2"
+         height="72"
+         width="9"
+         y="0"
+         x="31"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         style="fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none" />
+      <rect
+         id="svg_3"
+         height="9"
+         width="25"
+         y="63"
+         x="31"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         style="fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none" />
+      <rect
+         id="svg_4"
+         height="72"
+         width="9"
+         y="0"
+         x="47"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         style="fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none" />
+      <rect
+         id="svg_5"
+         height="9"
+         width="18.200001"
+         y="0"
+         x="47"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         style="fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none" />
+      <path
+         d="m 65,4.5 c 0,0 18,0 18,18 0,0 0,18 -18,18"
+         id="svg_6"
+         inkscape:connector-curvature="0"
+         style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:9" />
+      <rect
+         stroke-linejoin="null"
+         stroke-linecap="null"
+         x="63"
+         y="36"
+         width="9"
+         height="15.7193"
+         id="svg_7"
+         style="fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none" />
+      <rect
+         stroke-linejoin="null"
+         stroke-linecap="null"
+         x="78"
+         y="63"
+         width="9"
+         height="9"
+         id="svg_8"
+         style="fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none" />
+      <rect
+         id="svg_9"
+         height="24.934031"
+         width="9"
+         y="81.131989"
+         x="7.9705629"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         style="fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+         transform="rotate(-45)" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 3"
+     transform="translate(0.68986643,1.8548492)">
+    <path
+       style="fill:#2a7fff;fill-opacity:1;stroke:none;stroke-width:0.8015607px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 24.129232,1.1320778 h 3.820754 L 31.00659,4.4952854 27.949986,7.858493 h -3.820754 l 3.056603,-3.3632076 z"
+       id="path9151"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc" />
+    <circle
+       style="fill:#2a7fff;fill-opacity:1;stroke:none;stroke-width:1.42768228;stroke-opacity:1"
+       id="path858"
+       cx="20.5"
+       cy="4.5"
+       r="1.5" />
+    <circle
+       style="fill:#2a7fff;fill-opacity:0.66555182;stroke:none;stroke-width:1.42768228;stroke-opacity:1"
+       id="path858-1"
+       cx="12.5"
+       cy="4.5"
+       r="1.5" />
+    <circle
+       style="fill:#2a7fff;fill-opacity:0.33444818;stroke:none;stroke-width:1.42768228;stroke-opacity:1"
+       id="path858-0"
+       cx="4.5"
+       cy="4.5"
+       r="1.5" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Layer 4"
+     style="display:none"
+     transform="translate(0.68986643,1.8548492)">
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -0.14150943,4.6698135 30.853144,4.6136001 c 2.726771,-0.051634 4.482063,1.6686327 4.524214,4.1599871 l 0.01301,54.1767748 c 0,3.012025 1.535428,4.594352 4.218067,4.521391 l 7.655715,0.02825 c 3.034128,-0.01175 4.181314,-1.941615 4.092842,-4.378988 L 51.193485,9.1070873 c 0.02567,-2.6309094 2.192241,-4.4951516 4.7897,-4.4908774 L 65,4.3999377 c 23.153792,1.2225467 23.280887,31.2336993 6.158474,34.7973723 -2.920532,0.607848 -3.841544,2.016618 -3.878217,4.92108 l -0.02571,3.548792 c 0.094,1.454526 0.648336,2.373708 1.487645,3.237715 l 11.536822,11.608134 c 1.710287,1.64576 1.976804,2.290898 2.022829,4.637093 l 0.05665,4.87818"
+       id="path9155"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccscccccc" />
+  </g>
+</svg>
