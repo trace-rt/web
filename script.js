@@ -14,7 +14,48 @@ $(document).ready(function()
 				$("content").fadeOut(200, fadeBegin).css("visibility", "hidden");
 				return false;  
 			});
+		
+		$("#select-route").hide();
 	});
+
+//page event callbacks
+function setMapOverlay()
+{
+	switch($("#select-overlay option:selected").text())
+	{
+		case "None":
+			$("#select-route").hide(200);
+			break;
+		case "Route":
+			$("#select-route").show(200);
+			break;
+		case "Heatmap":
+			$("#select-route").hide(200);
+	}
+}
+
+function setMapRoute()
+{
+	//TEMP use array index of option value for selecting route data
+}
+
+//UI guide
+var bodyRect = 0, // document.body.getBoundingClientRect(),
+	elemRect = 0, // element.getBoundingClientRect(),
+	offset = 0; // {elemRect.top - bodyRect.top, elemRect.left - bodyRect.left};
+
+var line = $('#line');
+var div1 = $('#one');
+var div2 = $('#two');
+
+var x1 = div1.offset().left + (div1.width()/2);
+var y1 = div1.offset().top + (div1.height()/2);
+var x2 = div2.offset().left + (div2.width()/2);
+var y2 = div2.offset().top + (div2.height()/2);
+
+line.attr('x1',x1).attr('y1',y1).attr('x2',x2).attr('y2',y2);
+
+
 
 //Firebase
  var config = {
@@ -40,6 +81,10 @@ gapi.load('auth2', function(){
   });
 });
 };
+
+function onSignIn()
+{
+}
 
 //Google Maps
 // Note: This example requires that you consent to location sharing when

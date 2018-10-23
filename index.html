@@ -30,11 +30,19 @@
 		<div class="content-container">
 			<content id="maps" style="display: block; visibility: visible">
 				<h1>Maps</h1>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed massa laoreet, scelerisque libero mattis, aliquam mi. Cras a ex magna. Sed tempor leo id tellus dapibus mattis. Mauris eu lacus a nulla auctor pretium vitae sed justo. Donec ac malesuada lectus, et ultrices nisi. Sed porttitor vulputate tortor quis faucibus. Duis elementum dolor et varius vestibulum. Mauris pretium egestas est, vel fringilla diam malesuada at. Vivamus fermentum volutpat nibh, id aliquam nunc volutpat at. Fusce molestie eleifend blandit. Donec lacus nisi, maximus elementum augue ut, varius tristique dolor. Nullam neque libero, placerat a efficitur at, posuere a ipsum. Nulla tempor sem quis nibh elementum consequat.
-				</p>
 				<div class="map-container">
 					<div id="map" class="inset-shadow"></div>
+				</div>
+				<div class="select-container">
+					<div>Overlay</div>
+					<select id="select-overlay" onchange="setMapOverlay()">
+						<option selected>None</option>
+						<option>Route</option>
+						<option>Heatmap</option>
+					</select>
+					<select id="select-route" onchange="setMapRoute()">
+						<option selected disabled>Choose a recorded route</option>
+					</select>
 				</div>
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed massa laoreet, scelerisque libero mattis, aliquam mi. Cras a ex magna. Sed tempor leo id tellus dapibus mattis. Mauris eu lacus a nulla auctor pretium vitae sed justo. Donec ac malesuada lectus, et ultrices nisi. Sed porttitor vulputate tortor quis faucibus. Duis elementum dolor et varius vestibulum. Mauris pretium egestas est, vel fringilla diam malesuada at. Vivamus fermentum volutpat nibh, id aliquam nunc volutpat at. Fusce molestie eleifend blandit. Donec lacus nisi, maximus elementum augue ut, varius tristique dolor. Nullam neque libero, placerat a efficitur at, posuere a ipsum. Nulla tempor sem quis nibh elementum consequat.
@@ -82,11 +90,22 @@
 				</a>
 			</div>
 			<div class="signin-container">
-				<div class="g-signin2 inset-shadow" data-width="300" data-height="200" data-onsuccess="onSignIn"></div>
+				<div class="g-signin2 inset-shadow" data-width="120" data-height="36" data-onsuccess="onSignIn"></div>
 			</div>
 			<div class="info">
 				<img src="resources/info.svg"></img>
-				<div class="modal"></div>
+				<div class="modal">
+					<div class="uig-container">
+						<svg id="uig" width="0" height="0" >
+							<path
+							id="path1"
+							d="M0 0"         
+							stroke="#000" 
+							fill="none" 
+							stroke-width="12px"/>
+						</svg>
+					</div>
+				</div>
 			</div>
 		</footer>
 	</body>
