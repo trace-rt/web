@@ -317,6 +317,21 @@ footer a:hover > img
 	background: #999;
 }
 
+#gmol-bar
+{
+	width: 240px;
+	margin: 8px;
+	padding: 4px;
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.75);
+}
+
+#gmol-autoc
+{
+	width: 100%;
+	box-sizing: border-box;
+}
+
 /* responsive layout for small screens */
 @media (max-width: 600px)
 {

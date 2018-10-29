@@ -62,7 +62,7 @@ function populateHeatmap(vehicleRef)
 	var temp = [30.6123, -96.3351, 30.6138, -96.3342, 30.6142, -96.3328];
 	for(var i = 0; i < 3; i++)
 	{
-		heatmap.push(new google.maps.LatLng(temp[i * 2], temp[i * 2 + 1));
+		heatmap.push(new google.maps.LatLng(temp[i * 2], temp[i * 2 + 1]));
 	}
 }
 
