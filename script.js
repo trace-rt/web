@@ -1,5 +1,6 @@
 //dynamic page content
 var dest = "";
+var routes = []
 var heatmap = [];
 var map, heatmapLayer;
 
@@ -19,12 +20,15 @@ $(document).ready(function()
 			});
 		
 		$("#select-route").hide();
-		populateHeatmap(firebase.database().ref("/vehicles/_TEST_"));
-		heatmapLayer = new google.maps.visualization.HeatmapLayer({ data: heatmap, map: map });
-		heatmap.setMap(null);
 	});
 
 //page event callbacks
+function googleAPIReady()
+{
+	populateHeatmap(firebase.database().ref("/vehicles/_TEST_"));
+	heatmapLayer = new google.maps.visualization.HeatmapLayer({ data: heatmap, map: map });
+	heatmapLayer.setMap(null);
+}
 
 function setMapOverlay()
 {
@@ -32,15 +36,15 @@ function setMapOverlay()
 	{
 		case "None":
 			$("#select-route").hide(200);
-			heatmap.setMap(null);
+			heatmapLayer.setMap(null);
 			break;
 		case "Route":
 			$("#select-route").show(200);
-			heatmap.setMap(null);
+			heatmapLayer.setMap(null);
 			break;
 		case "Heatmap":
 			$("#select-route").hide(200);
-			heatmap.setMap(map);
+			heatmapLayer.setMap(map);
 	}
 }
 
@@ -52,22 +56,29 @@ function setMapRoute()
 //overlay functions
 function populateHeatmap(vehicleRef)
 {
-	vehicleRef.once("value", function (snap)
+	vehicleRef.once("value", function(snap)
 		{
-			snap.forEach(function (routeSnap)
+			snap.forEach(function(routeSnap)
 				{
-					routeSnap.forEach(function (pSnap)
+					var rKey = routeSnap.key;
+					if(rKey == "info") return;
+					
+					var route = { key: rKey, ps: [] };
+					routeSnap.forEach(function(pSnap)
 						{
-							console.log("lat", pSnap.val());
-							console.log("lng", pSnap.val());
-						})})});
-	//heatmap.push(new google.maps.LatLng(37.782551, -122.445368));
-
-	var temp = [30.6123, -96.3351, 30.6138, -96.3342, 30.6142, -96.3328];
-	for(var i = 0; i < 3; i++)
-	{
-		heatmap.push(new google.maps.LatLng(temp[i * 2], temp[i * 2 + 1]));
-	}
+							p = pSnap.val();
+							route.ps.push(p);
+							var temp = new google.maps.LatLng(p.lat, p.lng)
+							heatmap.push(temp);
+							console.log("lat", p.lat);
+							console.log("lng", p.lng);
+							console.log("gmLatLng", temp);
+						})
+					routes.push(route);
+					
+					$("#select-route").append("<option>" + route.key + "</option>");
+				})
+		});
 }
 
 //UI guide
