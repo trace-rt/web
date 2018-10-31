@@ -38,6 +38,7 @@ map = new google.maps.Map(document.getElementById('map'), {
   center: {lat: 30.61, lng: -96.35},
   zoom: 13
 });
+initPlacesUI();
 infoWindow = new google.maps.InfoWindow;
 
 // Try HTML5 geolocation.
@@ -72,6 +73,8 @@ infoWindow.open(map);
 //Snap to Roads test
 // Adds a Places search box. Searching for a place will center the map on that
 // location.
+function initPlacesUI()
+{
 map.controls[google.maps.ControlPosition.RIGHT_TOP].push(
   document.getElementById('gmol-bar'));
 var autocomplete = new google.maps.places.Autocomplete(
@@ -86,6 +89,7 @@ if (place.geometry.viewport) {
   map.setZoom(17);
 }
 });
+}
 
 // Snap a user-created polyline to roads and draw the snapped path
 function runSnapToRoad(path) {
