@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="google-signin-client_id" content="618088048289-6ojbgiu7u1pc0vl0rkh04kes8mb6ijh8.apps.googleusercontent.com">
 		<link rel="stylesheet" href="style.css">
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 		<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-auth.js"></script>
@@ -13,6 +14,7 @@
 		<script src="jquery-3.3.1.min.js"></script>
 		<script src="d3.v5.min.js"></script>
 		<script src="apis.js"></script>
+		<script src="data.js"></script>
 		<script src="script.js"></script>
 		<script async defer src="https://apis.google.com/js/platform.js"></script>
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeSqtpRuQhgqSd3_fH1_xBrW0BuD6S6eE&libraries=places,visualization&callback=initMap"></script>
@@ -53,18 +55,15 @@
 			</content>
 			<content id="data">
 				<h1>Data</h1>
-				<div class="chart">
-					<svg id="svg1"></svg>
-				</div>
+				<div class="chart"></div>
 				<div class="select-container">
 					<div>Chart</div>
 					<select id="select-chart" onchange="setDataChart()">
-						<option selected>Test</option>
-						<option>Option 1</option>
-						<option>Option 2</option>
+						<option selected>Route Metrics</option>
+						<option>Test</option>
 					</select>
 					<select id="select-data-route" onchange="setDataRoute()">
-						<option selected>Aggregate</option>
+						<option selected disabled>Choose a recorded route</option>
 					</select>
 				</div>
 			</content>

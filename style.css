@@ -174,7 +174,12 @@ p
 
 .chart
 {
-	
+	width: 1000px;
+	height: 500px;
+	margin: 20px 0px;
+	padding: 0px;
+	background-color: #eee;
+	fill: none;
 }
 
 .bar
