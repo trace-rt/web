@@ -22,7 +22,7 @@ $(document).ready(function()
 		$("#select-route").hide();
 		populateHeatmap(firebase.database().ref("/vehicles/_TEST_"));
 		setRoutes(routes);
-		drawChart("route0");
+		drawChart(0, "route0");
 	});
 
 //page event callbacks
