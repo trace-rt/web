@@ -342,16 +342,26 @@ footer a:hover > img
 	background: #ccc;
 }
 
+.canvas-bg
+{
+	float: left;
+	width: 50%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0);
+}
+
 #map
 {
 	position: relative;
 	width: 100%;
 	height: 100%;
 	background: #999;
+	overflow: auto;
 }
 
 #gmol-bar
 {
+	float: right;
 	width: 240px;
 	margin: 8px;
 	padding: 4px;

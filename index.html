@@ -36,7 +36,11 @@
 			<content id="maps" style="display: block; visibility: visible">
 				<h1>Maps</h1>
 				<div class="map-container">
-					<div id="map" class="inset-shadow"></div>
+					<div id="map" class="inset-shadow">
+						<div id="gmol-bar">
+							<input type="text" id="gmol-autoc"/>
+						</div>
+					</div>
 				</div>
 				<div class="select-container">
 					<div>Overlay</div>
@@ -110,16 +114,13 @@
 				<div class="modal">
 					<div class="uig-container">
 						<svg id="uig" width="0" height="0" >
-							<path
-							id="path1"
-							d="M0 0"         
-							stroke="#000" 
-							fill="none" 
-							stroke-width="12px"/>
+							<path id="path1" d="M0 0" stroke="#000" fill="none" stroke-width="12px"/>
 						</svg>
 					</div>
 				</div>
 			</div>
 		</footer>
+		<canvas id="canL" class="canvas-bg"></canvas>
+		<canvas id="canR" class="canvas-bg"></canvas>
 	</body>
 </html>
