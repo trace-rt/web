@@ -14,6 +14,7 @@
 		<script src="jquery-3.3.1.min.js"></script>
 		<script src="d3.v5.min.js"></script>
 		<script src="apis.js"></script>
+		<script src="maps.js"></script>
 		<script src="data.js"></script>
 		<script src="script.js"></script>
 		<script async defer src="https://apis.google.com/js/platform.js"></script>
@@ -36,25 +37,24 @@
 			<content id="maps" style="display: block; visibility: visible">
 				<h1>Maps</h1>
 				<div class="map-container">
-					<div id="map" class="inset-shadow">
-						<div id="gmol-bar">
-							<input type="text" id="gmol-autoc"/>
-						</div>
+					<div id="map" class="inset-shadow"></div>
+					<div id="gmol-bar">
+						<input type="text" id="gmol-autoc"/>
 					</div>
 				</div>
 				<div class="select-container">
 					<div>Overlay</div>
-					<select id="select-overlay" onchange="setMapOverlay()">
+					<select id="select-map" onchange="setMapOverlay()">
 						<option selected>None</option>
 						<option>Route</option>
 						<option>Heatmap</option>
 					</select>
-					<select id="select-route" onchange="setMapRoute()">
+					<select id="select-map-route" onchange="setMapRoute()">
 						<option selected disabled>Choose a recorded route</option>
 					</select>
 				</div>
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed massa laoreet, scelerisque libero mattis, aliquam mi. Cras a ex magna. Sed tempor leo id tellus dapibus mattis. Mauris eu lacus a nulla auctor pretium vitae sed justo. Donec ac malesuada lectus, et ultrices nisi. Sed porttitor vulputate tortor quis faucibus. Duis elementum dolor et varius vestibulum. Mauris pretium egestas est, vel fringilla diam malesuada at. Vivamus fermentum volutpat nibh, id aliquam nunc volutpat at. Fusce molestie eleifend blandit. Donec lacus nisi, maximus elementum augue ut, varius tristique dolor. Nullam neque libero, placerat a efficitur at, posuere a ipsum. Nulla tempor sem quis nibh elementum consequat.
+					The map above will let you see helpful overlays based on recorded location data. Route view is a visual trace of a previous route taken. In this view, each point along the path provides all vehicle metrics recorded in that instance as a sort of snapshot of your drive. Heatmap view highlights the most travelled roads across all aggregate routes.
 				</p>
 			</content>
 			<content id="data">

@@ -1,8 +1,8 @@
 var dest = "";
-var routes = []
+var rs = []
 var heatmap = [];
-var map, heatmapLayer;
-var curRoute = 0;
+var map, routeLayer, heatmapLayer;
+var curMapRoute = 0, curDataRoute = 0;
 
 //dynamic page content
 function fadeBegin()
@@ -24,7 +24,11 @@ $(document).ready(function()
 		pullData(firebase.database().ref("/vehicles/_TEST_"));
 	});
 
-window.onload = function() { initMap(); }
+window.onload = function()
+	{
+		initMap();
+		googleAPIReady();
+	}
 
 //page event callbacks
 function googleAPIReady()
@@ -43,11 +47,11 @@ function pullData(vehicleRef)
 			var rKey = routeSnap.key;
 			if(rKey == "info") return;
 			
-			routes[rKey] = [];
+			rs[rKey] = [];
 			routeSnap.forEach(function(pSnap)
 			{
 				p = pSnap.val();
-				routes[rKey].push(p);
+				rs[rKey].push(p);
 				heatmap.push(new google.maps.LatLng(p.lat, p.lng));
 			})
 			
@@ -55,35 +59,35 @@ function pullData(vehicleRef)
 			$("#select-data-route").append("<option>" + rKey + "</option>");
 		})
 	});
-	rs = routes;
 	setTimeout(function()
 		{
-			drawChart(0, "route" + curRoute);
+			drawChart(0, "route" + curDataRoute);
 		}, 500);
 }
 
 //overlay functions
 function setMapOverlay()
 {
-	switch($("#select-overlay option:selected").text())
+	switch($("#select-map option:selected").text())
 	{
 		case "None":
-			$("#select-route").hide(200);
-			heatmapLayer.setMap(null);
+			$("#select-map-route").hide(200);
+			drawMap(0);
 			break;
 		case "Route":
-			$("#select-route").show(200);
-			heatmapLayer.setMap(null);
+			$("#select-map-route").show(200);
+			drawMap(1, "route" + curMapRoute);
 			break;
 		case "Heatmap":
-			$("#select-route").hide(200);
-			heatmapLayer.setMap(map);
+			$("#select-map-route").hide(200);
+			drawMap(2);
 	}
 }
 
 function setMapRoute()
 {
-	//TEMP use array index of option value for selecting route data
+	curMapRoute = $("#select-map option:selected").index();
+	drawChart(0, "route" + curMapRoute);
 }
 
 //chart functions
@@ -93,7 +97,7 @@ function setDataChart()
 	{
 		case "Route Metrics":
 			$("#select-data-route").show(200);
-			drawChart(0, "route" + curRoute);
+			drawChart(0, "route" + curDataRoute);
 			break;
 		case "Test":
 			$("#select-data-route").hide(200);
@@ -103,8 +107,8 @@ function setDataChart()
 
 function setDataRoute()
 {
-	curRoute = $("#select-chart option:selected").index();
-	drawChart(0, "route" + curRoute);
+	curDataRoute = $("#select-chart option:selected").index();
+	drawChart(0, "route" + curDataRoute);
 }
 
 //UI guide
