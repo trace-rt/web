@@ -24,6 +24,8 @@ $(document).ready(function()
 		pullData(firebase.database().ref("/vehicles/_TEST_"));
 	});
 
+window.onload = function() { initMap(); }
+
 //page event callbacks
 function googleAPIReady()
 {
