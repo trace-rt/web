@@ -35,7 +35,7 @@ function onSignIn()
 var map, infoWindow;
 function initMap()
 {
-	map = new google.maps.Map($("#map"), {
+	map = new google.maps.Map(document.getElementById("map"), {
 			center: { lat: 30.61, lng: -96.35 },
 			zoom: 13
 		});
