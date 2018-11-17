@@ -1,14 +1,14 @@
-var drawingManager;
-var placeIdArray = [];
 var polylines = [];
-var snappedCoordinates = [];
+var markers = [];
 var apiKey = "AIzaSyBeSqtpRuQhgqSd3_fH1_xBrW0BuD6S6eE";
+var pIcon = "resources/p-icon.svg";
 
 function drawMap(select, routeKey)
 {
 	switch(select)
 	{
 		case 0:
+			setMarkers(false);
 			heatmapLayer.setMap(null);
 			break;
 		case 1:
@@ -16,6 +16,7 @@ function drawMap(select, routeKey)
 			runSnapToRoad(rs[routeKey]);
 			break;
 		case 2:
+			setMarkers(false);
 			heatmapLayer.setMap(map);
 	}
 }
@@ -35,93 +36,90 @@ function runSnapToRoad(path)
 			interpolate: true,
 			key: apiKey,
 			path: pathValues.join("|")
-		}, function(data)
-		{
-			processSnapToRoadResponse(data);
-			drawSnappedPolyline();
-			getAndDrawSpeedLimits();
-		});
+		}, function(data) { processSnapToRoadResponse(data, path); });
 }
 
 // Store snapped polyline returned by the snap-to-road service.
-function processSnapToRoadResponse(data)
+function processSnapToRoadResponse(data, path)
 {
-	snappedCoordinates = [];
-	placeIdArray = [];
+	var snappedCoordinates = [];
 	for(var i = 0; i < data.snappedPoints.length; i++)
 	{
 		var latlng = new google.maps.LatLng(data.snappedPoints[i].location.latitude, data.snappedPoints[i].location.longitude);
 		snappedCoordinates.push(latlng);
-		placeIdArray.push(data.snappedPoints[i].placeId);
 	}
-}
-
-// Draws the snapped polyline (after processing snap-to-road response).
-function drawSnappedPolyline()
-{
-	var snappedPolyline = new google.maps.Polyline({ path: snappedCoordinates, strokeColor: "black", strokeWeight: 3 });
-	snappedPolyline.setMap(map);
-	polylines.push(snappedPolyline);
-}
-
-// Gets speed limits (for 100 segments at a time) and draws a polyline
-// color-coded by speed limit. Must be called after processing snap-to-road
-// response.
-function getAndDrawSpeedLimits()
-{
-	for(var i = 0; i <= placeIdArray.length / 100; i++)
+	
+	//draw snapped points and lines
+	for(var i = 0; i < snappedCoordinates - 1; i++)
 	{
-		// Ensure that no query exceeds the max 100 placeID limit.
-		var start = i * 100;
-		var end = Math.min((i + 1) * 100 - 1, placeIdArray.length);
-
-		drawSpeedLimits(start, end);
-	}
-}
-
-// Gets speed limits for a 100-segment path and draws a polyline color-coded by
-// speed limit. Must be called after processing snap-to-road response.
-function drawSpeedLimits(start, end)
-{
-	var placeIdQuery = "";
-	for(var i = start; i < end; i++)
-	{
-		placeIdQuery += "&placeId=" + placeIdArray[i];
-	}
-
-	$.get("https://roads.googleapis.com/v1/speedLimits",
-		"key=" + apiKey + placeIdQuery,
-		function(speedData)
-		{
-			processSpeedLimitResponse(speedData, start);
-		});
-}
-
-// Draw a polyline segment (up to 100 road segments) color-coded by speed limit.
-function processSpeedLimitResponse(speedData, start)
-{
-	var end = start + speedData.speedLimits.length;
-	for(var i = 0; i < speedData.speedLimits.length - 1; i++)
-	{
-		var speedLimit = speedData.speedLimits[i].speedLimit;
-		var color = getColorForSpeed(speedLimit);
-
-		// Take two points for a single-segment polyline.
-		var coords = snappedCoordinates.slice(start + i, start + i + 2);
-
-		var snappedPolyline = new google.maps.Polyline({ path: coords, strokeColor: color, strokeWeight: 6 });
-		snappedPolyline.setMap(map);
+		var color = getSpeedColor(path[i].speed);
+		var snappedPolyline = new google.maps.Polyline({ path: snappedCoordinates, strokeColor: color, strokeWeight: 3, map: map});
 		polylines.push(snappedPolyline);
 	}
+	setMarkers(true, path);
 }
 
-function getColorForSpeed(speed_kph)
+//gradient stops: 0-black 30-purple 40-blue 50-green 60-yellow 70-orange 80-red-100
+var gradient = [[0, [0, 0, 0]], [30, [255, 0, 255]], [40, [0, 0, 255]], [50, [0, 255, 0]], [60, [255, 255, 0]], [70, [255, 165, 0]],
+	[80, [255, 0, 0]], [100, [255, 0, 0]]];
+function getSpeedColor(speed_kph)
 {
-	var speed_mph = speed_kph * .621371;
-	if(speed_mph < 35) { return "purple"; }
-	if(speed_mph <= 40) { return "blue"; }
-	if(speed_mph <= 50) { return "green"; }
-	if(speed_mph <= 60) { return "yellow"; }
-	if(speed_mph <= 70) { return "orange"; }
-	return "red";
+	//convert to MPH
+	var speed_mph = Math.min(speed_kph * .621371, 80);
+	var colorRange = [];
+	$.each(gradient, function(index, value)
+		{
+			if(speed_mph <= value[0])
+			{
+				colorRange = [index-1,index]
+				return false;
+			}
+		});
+	
+	//get the two closest colors
+	var color1 = gradient[colorRange[0]][1];
+	var color2 = gradient[colorRange[1]][1];
+	//calculate ratio between the two closest colors
+	var color1X = 100 * (gradient[colorRange[0]][0]/100);
+	var cloor2X = 100 * (gradient[colorRange[1]][0]/100) - colorX;
+	var ratio = (speed_mph - color1X) / color2X;
+	
+	//find color weights
+	var w1 = ((ratio * 2 - 1) / 1 + 1) / 2;
+	var w2 = 1 - w1;
+	var rgb = [Math.round(color2[0] * w1 + color1[0] * w2), Math.round(color2[1] * w1 + color1[1] * w2),
+		Math.round(color2[2] * w1 + color1[2] * w2)];
+	return "rgb(" + rgb.join() + ")";
+}
+
+function setMarkers(show, path)
+{
+	if(show)
+	{
+		if(markers.length == 0)
+		{
+			for(var i = 0; i < path.length; i++)
+			{
+				var p = path[i];
+				var marker = new google.maps.Marker({ position: new google.maps.LatLng(p.lat, p.lng), icon: pIcon, opacity: .5, map: map });
+				marker.addListener("mouseover", function(e) { marker.setOpacity(1) });
+				marker.addListener("mouseout", function(e) { marker.setOpacity(.5) });
+				markers.push(marker);
+			}
+		}
+		else
+		{
+			for(var i = 0; i < markers.length; i++)
+			{
+				markers[i].setMap(map);
+			}
+		}
+	}
+	else
+	{
+		for(var i = 0; i < markers.length; i++)
+		{
+			markers[i].setMap(null);
+		}
+	}
 }

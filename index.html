@@ -13,6 +13,7 @@
 		<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-database.js"></script>
 		<script src="jquery-3.3.1.min.js"></script>
 		<script src="d3.v5.min.js"></script>
+		<script src="d3.v5.min.js"></script>
 		<script src="apis.js"></script>
 		<script src="maps.js"></script>
 		<script src="data.js"></script>
@@ -44,12 +45,12 @@
 				</div>
 				<div class="select-container">
 					<div>Overlay</div>
-					<select id="select-map" onchange="setMapOverlay()">
+					<select id="select-maps" onchange="setMapOverlay()">
 						<option selected>None</option>
 						<option>Route</option>
 						<option>Heatmap</option>
 					</select>
-					<select id="select-map-route" onchange="setMapRoute()">
+					<select id="select-maps-route" onchange="setMapRoute()">
 						<option selected disabled>Choose a recorded route</option>
 					</select>
 				</div>
@@ -62,7 +63,7 @@
 				<div class="chart"></div>
 				<div class="select-container">
 					<div>Chart</div>
-					<select id="select-chart" onchange="setDataChart()">
+					<select id="select-data" onchange="setDataChart()">
 						<option selected>Route Metrics</option>
 						<option>Test</option>
 					</select>

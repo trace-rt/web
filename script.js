@@ -20,7 +20,8 @@ $(document).ready(function()
 			return false;  
 		});
 		
-		$("#select-route").hide();
+		$("#select-maps-route").hide();
+		$("#select-data-route").hide();
 		pullData(firebase.database().ref("/vehicles/_TEST_"));
 	});
 
@@ -55,7 +56,7 @@ function pullData(vehicleRef)
 				heatmap.push(new google.maps.LatLng(p.lat, p.lng));
 			})
 			
-			$("#select-route").append("<option>" + rKey + "</option>");
+			$("#select-maps-route").append("<option>" + rKey + "</option>");
 			$("#select-data-route").append("<option>" + rKey + "</option>");
 		})
 	});
@@ -68,26 +69,26 @@ function pullData(vehicleRef)
 //overlay functions
 function setMapOverlay()
 {
-	switch($("#select-map option:selected").text())
+	switch($("#select-maps option:selected").text())
 	{
 		case "None":
-			$("#select-map-route").hide(200);
+			$("#select-maps-route").hide(200);
 			drawMap(0);
 			break;
 		case "Route":
-			$("#select-map-route").show(200);
+			$("#select-maps-route").show(200);
 			drawMap(1, "route" + curMapRoute);
 			break;
 		case "Heatmap":
-			$("#select-map-route").hide(200);
+			$("#select-maps-route").hide(200);
 			drawMap(2);
 	}
 }
 
 function setMapRoute()
 {
-	curMapRoute = $("#select-map option:selected").index();
-	drawChart(0, "route" + curMapRoute);
+	curMapRoute = $("#select-maps option:selected").index();
+	drawMap(1, "route" + curMapRoute);
 }
 
 //chart functions
