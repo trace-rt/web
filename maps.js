@@ -2,6 +2,7 @@ var polylines = [];
 var markers = [];
 var apiKey = "AIzaSyBeSqtpRuQhgqSd3_fH1_xBrW0BuD6S6eE";
 var pIcon = "resources/p-icon.svg";
+var infoWindow;
 
 function drawMap(select, routeKey)
 {
@@ -9,6 +10,7 @@ function drawMap(select, routeKey)
 	{
 		case 0:
 			setMarkers(false);
+			hidePolylines();
 			heatmapLayer.setMap(null);
 			break;
 		case 1:
@@ -17,6 +19,7 @@ function drawMap(select, routeKey)
 			break;
 		case 2:
 			setMarkers(false);
+			hidePolylines();
 			heatmapLayer.setMap(map);
 	}
 }
@@ -50,13 +53,20 @@ function processSnapToRoadResponse(data, path)
 	}
 	
 	//draw snapped points and lines
-	for(var i = 0; i < snappedCoordinates - 1; i++)
+	var color = "black";
+	var index = 0;
+	for(var i = 0; i < snappedCoordinates.length - 1; i++)
 	{
-		var color = getSpeedColor(path[i].speed);
-		var snappedPolyline = new google.maps.Polyline({ path: snappedCoordinates, strokeColor: color, strokeWeight: 3, map: map});
+		if((index = data.snappedPoints[i].originalIndex))
+		{
+			color = getSpeedColor(path[index].speed);
+		}
+		
+		var snappedPolyline = new google.maps.Polyline({ path: [snappedCoordinates[i], snappedCoordinates[i + 1]],
+			strokeColor: color, strokeWeight: 3, map: map });
 		polylines.push(snappedPolyline);
 	}
-	setMarkers(true, path);
+	setMarkers(true, path, snappedCoordinates, data.snappedPoints);
 }
 
 //gradient stops: 0-black 30-purple 40-blue 50-green 60-yellow 70-orange 80-red-100
@@ -81,7 +91,7 @@ function getSpeedColor(speed_kph)
 	var color2 = gradient[colorRange[1]][1];
 	//calculate ratio between the two closest colors
 	var color1X = 100 * (gradient[colorRange[0]][0]/100);
-	var cloor2X = 100 * (gradient[colorRange[1]][0]/100) - colorX;
+	var color2X = 100 * (gradient[colorRange[1]][0]/100) - color1X;
 	var ratio = (speed_mph - color1X) / color2X;
 	
 	//find color weights
@@ -92,18 +102,46 @@ function getSpeedColor(speed_kph)
 	return "rgb(" + rgb.join() + ")";
 }
 
-function setMarkers(show, path)
+function hidePolylines()
+{
+	for(var i = 0; i < polylines.length; i++)
+	{
+		polylines[i].setMap(null);
+	}
+	polylines = [];
+}
+
+function setMarkers(show, path, snappedPath, data)
 {
 	if(show)
 	{
 		if(markers.length == 0)
 		{
+			var pIconAnchored = { url: pIcon, anchor: new google.maps.Point(9, 9) };
+			var lastSnap = 0;
 			for(var i = 0; i < path.length; i++)
 			{
 				var p = path[i];
-				var marker = new google.maps.Marker({ position: new google.maps.LatLng(p.lat, p.lng), icon: pIcon, opacity: .5, map: map });
-				marker.addListener("mouseover", function(e) { marker.setOpacity(1) });
-				marker.addListener("mouseout", function(e) { marker.setOpacity(.5) });
+				for(var j = lastSnap; j < snappedPath.length; j++)
+				{
+					if(data[j].originalIndex == i)
+					{
+						lastSnap = j;
+						break;
+					}
+				}
+				var marker = new google.maps.Marker({ position: snappedPath[lastSnap], icon: pIconAnchored, opacity: .5, map: map });
+				marker.pIndex = i;
+				marker.addListener("mouseover", function(e)
+					{
+						this.setOpacity(1);
+						setInfoWindow(true, this);
+					});
+				marker.addListener("mouseout", function(e)
+					{
+						this.setOpacity(.5);
+						setInfoWindow(false);
+					});
 				markers.push(marker);
 			}
 		}
@@ -121,5 +159,19 @@ function setMarkers(show, path)
 		{
 			markers[i].setMap(null);
 		}
+	}
+}
+
+function setInfoWindow(show, marker)
+{
+	if(show)
+	{
+		var p = rs["route" + curMapRoute][marker.pIndex];
+		infoWindow.setContent("Speed: " + p.speed);
+		infoWindow.open(map, marker);
+	}
+	else
+	{
+		infoWindow.close();
 	}
 }

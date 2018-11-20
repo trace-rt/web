@@ -2,7 +2,7 @@ var dest = "";
 var rs = []
 var heatmap = [];
 var map, routeLayer, heatmapLayer;
-var curMapRoute = 0, curDataRoute = 0;
+var curMapRoute, curDataRoute;
 
 //dynamic page content
 function fadeBegin()
@@ -21,7 +21,6 @@ $(document).ready(function()
 		});
 		
 		$("#select-maps-route").hide();
-		$("#select-data-route").hide();
 		pullData(firebase.database().ref("/vehicles/_TEST_"));
 	});
 
@@ -34,6 +33,7 @@ window.onload = function()
 //page event callbacks
 function googleAPIReady()
 {
+	infoWindow = new google.maps.InfoWindow;
 	heatmapLayer = new google.maps.visualization.HeatmapLayer({ data: heatmap, map: map });
 	heatmapLayer.setMap(null);
 }
@@ -77,7 +77,7 @@ function setMapOverlay()
 			break;
 		case "Route":
 			$("#select-maps-route").show(200);
-			drawMap(1, "route" + curMapRoute);
+			if(curMapRoute != undefined) drawMap(1, "route" + curMapRoute);
 			break;
 		case "Heatmap":
 			$("#select-maps-route").hide(200);
@@ -87,20 +87,21 @@ function setMapOverlay()
 
 function setMapRoute()
 {
-	curMapRoute = $("#select-maps option:selected").index();
+	markers = [];
+	curMapRoute = $("#select-maps option:selected").index() - 1;
 	drawMap(1, "route" + curMapRoute);
 }
 
 //chart functions
 function setDataChart()
 {
-	switch($("#select-chart option:selected").text())
+	switch($("#select-data option:selected").text())
 	{
 		case "Route Metrics":
 			$("#select-data-route").show(200);
-			drawChart(0, "route" + curDataRoute);
+			if(curDataRoute != undefined) drawChart(0, "route" + curDataRoute);
 			break;
-		case "Test":
+		case "Calendar":
 			$("#select-data-route").hide(200);
 			drawChart(1);
 	}
@@ -108,7 +109,7 @@ function setDataChart()
 
 function setDataRoute()
 {
-	curDataRoute = $("#select-chart option:selected").index();
+	curDataRoute = $("#select-data option:selected").index();
 	drawChart(0, "route" + curDataRoute);
 }
 
@@ -126,7 +127,7 @@ var y2 = div2.offset().top + (div2.height()/2);
 line.attr('x1',x1).attr('y1',y1).attr('x2',x2).attr('y2',y2);*/
 
 //background animation
-(function ($, window)
+/*(function ($, window)
 {
 	function Pattern(canvas, options)
 	{
@@ -241,4 +242,4 @@ $("#canL").initBG(
 			width: 1
 		},
 		radius: 350
-	});
+	});*/

@@ -29,16 +29,11 @@ function onSignIn()
 }
 
 //Google Maps
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
 var map, infoWindow;
 function initMap()
 {
 	map = new google.maps.Map(document.getElementById("map"), { center: { lat: 30.61, lng: -96.35 }, zoom: 13 });
 	initPlacesUI();
-	infoWindow = new google.maps.InfoWindow;
 
 	// Try HTML5 geolocation.
 	if(navigator.geolocation)
@@ -46,33 +41,25 @@ function initMap()
 		navigator.geolocation.getCurrentPosition(function(position)
 			{
 				var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
-
-				infoWindow.setPosition(pos);
-				infoWindow.setContent("Location found.");
-				infoWindow.open(map);
 				map.setCenter(pos);
-			}, function() { handleLocationError(true, infoWindow, map.getCenter()); });
+			}, function() { handleLocationError(true); });
 	}
 	else
 	{
 		// Browser doesn't support Geolocation
-		handleLocationError(false, infoWindow, map.getCenter());
+		handleLocationError(false);
 	}
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos)
+function handleLocationError(browserHasGeolocation)
 {
-	infoWindow.setPosition(pos);
-	infoWindow.setContent(browserHasGeolocation ? "Error: The Geolocation service failed." : "Error: Your browser doesn\'t support geolocation.");
-	infoWindow.open(map);
+	consol.log(browserHasGeolocation ? "Error: The Geolocation service failed." : "Error: Your browser doesn\'t support geolocation.");
 }
 
-//Snap to Roads test
-// Adds a Places search box. Searching for a place will center the map on that
-// location.
+//Google Places search box
 function initPlacesUI()
 {
-	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(document.getElementById("gmol-bar"));
+	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById("gmol-bar"));
 	var autocomplete = new google.maps.places.Autocomplete(document.getElementById("gmol-autoc"));
 	autocomplete.bindTo("bounds", map);
 	autocomplete.addListener("place_changed", function()
