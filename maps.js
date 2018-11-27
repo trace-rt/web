@@ -2,7 +2,7 @@ var polylines = [];
 var markers = [];
 var apiKey = "AIzaSyBeSqtpRuQhgqSd3_fH1_xBrW0BuD6S6eE";
 var pIcon = "resources/p-icon.svg";
-var infoWindow;
+var infoWindow, infoShow;
 
 function drawMap(select, routeKey)
 {
@@ -75,7 +75,7 @@ var gradient = [[0, [0, 0, 0]], [30, [255, 0, 255]], [40, [0, 0, 255]], [50, [0,
 function getSpeedColor(speed_kph)
 {
 	//convert to MPH
-	var speed_mph = Math.min(speed_kph * .621371, 80);
+	var speed_mph = Math.min(Math.max(speed_kph * .621371, 1), 80);
 	var colorRange = [];
 	$.each(gradient, function(index, value)
 		{
@@ -166,12 +166,19 @@ function setInfoWindow(show, marker)
 {
 	if(show)
 	{
+		infoShow = true;
 		var p = rs["route" + curMapRoute][marker.pIndex];
-		infoWindow.setContent("Speed: " + p.speed);
+		infoWindow.setContent("Speed: " + (p.speed * .621371).toFixed(1) + "mph");
 		infoWindow.open(map, marker);
+		var iw_container = $(".gm-style-iw").parent();
+		iw_container.stop().hide();
+		iw_container.fadeIn(150);
 	}
 	else
 	{
-		infoWindow.close();
+		infoShow = false;
+		var iw_container = $(".gm-style-iw").parent();
+		iw_container.fadeOut(150);
+		setTimeout(function() { if(!infoShow) infoWindow.close(); }, 150);
 	}
 }

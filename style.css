@@ -14,6 +14,7 @@ body
 {
 	height: 100%;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 14px;
 	background-color: #ccc;
 	background: radial-gradient(circle farthest-side, #fff, #ccc);
 	background-repeat: no-repeat;
@@ -39,7 +40,7 @@ nav
 	width: 100%;
     padding: 20px;
     text-align: center;
-    font-size: 28px;
+    font-size: 26px;
     text-shadow: 0px 0px 8px black;
     color: white;
 	background-color: #06f;
@@ -104,7 +105,6 @@ nav:after
 	color: white;
 	text-decoration: none;
 	transition: text-shadow 0.2s;
-	cursor: pointer;
 }
 
 .nav-inner-container a:hover
@@ -157,6 +157,11 @@ p
 	color: black;
 }
 
+a
+{
+	cursor: pointer;
+}
+
 .map-container
 {
 	width: 1000px;
@@ -172,6 +177,19 @@ p
 	padding: 0px 20px;
 }
 
+button
+{
+	display: none;
+	float: right;
+}
+
+button:after
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
 .chart
 {
 	width: 1000px;
@@ -180,6 +198,8 @@ p
 	padding: 0px;
 	background-color: #eee;
 	fill: none;
+	overflow-x: scroll;
+	user-select: none;
 }
 
 .bar
@@ -223,6 +243,11 @@ p
 	padding: 0px;
 }
 
+.about-final p
+{
+	text-align: center;
+}
+
 sidebar
 {
     
@@ -234,7 +259,7 @@ footer
 	bottom: 0px;
 	z-index: 1;
 	width: 100%;
-	height: 50px;
+	height: 40px;
     padding: 0px 20px;
     background-color: #999;
 	box-shadow: 0 0 8px #333;
@@ -255,7 +280,7 @@ footer div
 	float: left;
 	width: 40%;
 	height: 100%;
-	padding: 12px 0px;
+	padding: 8px 0px;
     color: white;
 }
 
@@ -336,8 +361,8 @@ footer a:hover > img
 .signin-container div
 {
 	float: right;
-	width: 120px;
-	height: 36px;
+	width: 100px;
+	height: 25px;
 	padding: 0px;
 	background: #ccc;
 }

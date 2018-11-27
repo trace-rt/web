@@ -25,7 +25,7 @@
 		<div class="nav-container">
 			<nav class="nav-maps">
 				<div class="logo">
-					<img src="resources/logo.svg" height="52px"></img>
+					<img src="resources/logo.svg" height="45px"></img>
 				</div>
 				<div class="nav-inner-container">
 					<a href="#maps">Maps</a>
@@ -55,14 +55,14 @@
 					</select>
 				</div>
 				<p>
-					The map above will let you see helpful overlays based on recorded location data. Route view is a visual trace of a previous route taken. In this view, each point along the path provides all vehicle metrics recorded in that instance as a sort of snapshot of your drive. Heatmap view highlights the most travelled roads across all aggregate routes.
+					The map above will let you see helpful overlays based on recorded location data. Route view is a visual trace of a previous route taken. In this view, each point along the path provides vehicle metrics recorded in that instance as a sort of snapshot of your drive. Heatmap view highlights the most travelled roads across all aggregate routes.
 				</p>
 			</content>
 			<content id="data">
-				<h1>Data</h1>
+				<h1>Data <button id="data-dl" type="button" onclick="download()">Download JSON</button></h1>
 				<div class="chart"></div>
 				<div class="select-container">
-					<div>Chart</div>
+					<div>Info</div>
 					<select id="select-data" onchange="setDataChart()">
 						<option selected>Route Metrics</option>
 						<option>Calendar</option>
@@ -71,6 +71,9 @@
 						<option selected disabled>Choose a recorded route</option>
 					</select>
 				</div>
+				<p>
+					Two different info panels can be selected above to show relevant data recorded by your vehicle. Route Metrics displays a 2D graph of a given route with side-by-side comparisons of metrics like speed and RPMs. The Calendar is both a historical log of previous drives and a handy schedule to track upcoming reminders of any necessary vehicle maintenance.
+				</p>
 			</content>
 			<content id="about">
 				<h1>About</h1>
@@ -78,13 +81,13 @@
 					<img src="resources/logo.svg" height="150px"></img>
 				</div>
 				<p>
-					Transportation research is a nonstop game of trying to understand traffic data and apply it in a way that makes our public systems more efficient. Every driver on the road today has thought about how to get to their destination more efficiently; many researchers try to find ways to mitigate traffic for reasons such as emissions and efficiency. We want to provide a tool to help quantify those efforts and model them.
+					Transportation research is an ongoing challenge of trying to understand traffic data and apply it in a way that makes our public systems more efficient. Every driver on the road today has thought about how to get to their destination more efficiently; many researchers try to find ways to mitigate traffic for reasons such as emissions and efficiency. We want to provide a tool to help quantify those efforts and model them.
 				</p>
 				<div class="content-img">
 					<img src="resources/diagram-system.png"></img>
 				</div>
 				<p>
-					TraceRT (Trace Route) is a vehicle blackbox system composed of an Android app, a cloud database, and this web interface. The app takes data from an <a href="http://openxcplatform.com/">OpenXC OBD 2 sensor</a>, the <a href="https://cloud.google.com/maps-platform/">Google Maps API</a>, and the sensors built into your mobile device, and sends it to our <a href="https://firebase.google.com/">Firebase database</a>. This provides users with data to model things like vehicle statistics, emissions, fuel efficiency, route comparisons, and even keeping track of car service records for regular maintenance. Users can also download their data directly for other applications.
+					TraceRT ("Trace Route") is a vehicle blackbox system composed of an Android app, a cloud database, and this web interface. The app takes data from an <a href="http://openxcplatform.com/">OpenXC OBD 2 sensor</a>, the <a href="https://cloud.google.com/maps-platform/">Google Maps API</a>, and the sensors built into your mobile device, and sends it to our <a href="https://firebase.google.com/">Firebase database</a>. This provides users with data to model things like vehicle statistics, emissions, fuel efficiency, route comparisons, and even keeping track of car service records for regular maintenance. Users can also download their data directly for other applications.
 				</p>
 				<div class="content-img">
 					<img src="resources/diagram-app.png"></img>
@@ -98,17 +101,28 @@
 				<p>
 					The web interface serves as a frontend of our system by giving users a clear view of data models and conceals the underlying data retrieval, processing, and hardware interaction handled by other components of the blackbox system. Web hosting is done through <a href="https://pages.github.com/">GitHub Pages</a> and dynamic data visualization is handled by the <a href="https://d3js.org/">D3 Javascript library</a>. Users are able to login through their Google accounts to see information from their own vehicles. Data collected by the app is pulled from our database to create informative visualizations of each data model in our system: route efficiency, emissions, road quality, and maintenance logging and tracking. This data can be overlaid upon maps to add another dimension of location information.
 				</p>
+				<p>
+					This project was created for our Computer Science senior design class at Texas A&amp;M University. In our team of 3, each member worked on different components of the system, dividing up our responsibilities. Caleb E., our team leader, configured the OpenXC hardware and set up our database, as well as team management tasks. Ricky S. designed and programmed our Android app and handled interconnectivity between the hardware, device, and database. Jared M. designed and implemented our website and data visualizations.
+				</p>
+				<div class="about-final">
+					<p><img src="resources/github.svg"></img></p>
+					<p>
+						<b>Visit our project on GitHub!</b>
+						<br/>
+						<a href="https://github.com/trace-rt/web">Web Interface</a>
+						<br/>
+						<a href="https://github.tamu.edu/rs008354/Vehicle-BlackBox-Mobile">Android App *</a>
+					</p>
+					<p>* Note: requires TAMU login</p>
+				</div>
 			</content>
 		</div>
 		<footer>
 			<div>
-				<a href="https://github.tamu.edu/rs008354/Vehicle-BlackBox-Mobile">
-					<img src="resources/github.svg"></img>
-					Visit our project on GitHub!
-				</a>
+				<select id="select-vehicle" onchange="setVehicle()"></select>
 			</div>
 			<div class="signin-container">
-				<div class="g-signin2 inset-shadow" data-width="120" data-height="36" data-onsuccess="onSignIn"></div>
+				<div class="g-signin2 inset-shadow" data-width="100" data-height="30" data-onsuccess="onSignIn()"></div>
 			</div>
 			<div class="info">
 				<img src="resources/info.svg"></img>

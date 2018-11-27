@@ -1,6 +1,12 @@
-var margin = { top: 20, right: 20, bottom: 20, left: 20 },
-	width = 1000 - margin.left - margin.right,
-	height = 500 - margin.top - margin.bottom;
+function download()
+{
+	var data = "text/json;charset=utf-8," + encodeURIComponent(jsonData);
+	var dlAnchor = document.createElement("a");
+	$(dlAnchor).attr("href", "data:" + data).attr("download", curVehicle + ".json").hide();
+	$("body").append(dlAnchor);
+	dlAnchor.click();
+	dlAnchor.remove();
+}
 
 function drawChart(select, routeKey)
 {
@@ -32,7 +38,11 @@ function drawChart(select, routeKey)
 					return { x: t, y: rs[rKey][t][m.metric] || 0 }
 				}), m;
 			});
-			
+		
+		var margin = { top: 20, right: 20, bottom: 20, left: 30 },
+			width = Math.max(1000, len * 10) - margin.left - margin.right,
+			height = 475 - margin.top - margin.bottom;
+		
 		var svg = d3.select(".chart").append("svg")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
@@ -57,7 +67,9 @@ function drawChart(select, routeKey)
 		svg.append("g")
 			.attr("class", "axis axis--x")
 			.attr("transform", "translate(0," + y(0) + ")")
-			.call(d3.axisBottom(x));
+			.call(d3.axisBottom(x)
+			.ticks(len)
+			.tickFormat(function(d) { return d + 1; }));
 
 		svg.append("g")
 			.attr("class", "axis axis--y")
@@ -67,7 +79,6 @@ function drawChart(select, routeKey)
 			.attr("class", "axis-title")
 			.attr("x", 3)
 			.attr("dy", ".32em")
-			.text("Color Difference at ±10° (CIE76)");
 
 		var g = svg.selectAll(".line")
 			.data(data)

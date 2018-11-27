@@ -1,27 +1,30 @@
-var dest = "";
-var rs = []
+var page = "";
+var jsonData = "";
+var vs  = [];
+var rs = [];
 var heatmap = [];
 var map, routeLayer, heatmapLayer;
-var curMapRoute, curDataRoute;
+var curVehicle, curMapRoute, curDataRoute;
 
 //dynamic page content
 function fadeBegin()
 {
-	$(dest).hide().css("visibility", "visible").fadeIn(200);
-	$("nav").attr("class", "nav-" + dest.substring(1));
+	$(page).hide().css("visibility", "visible").fadeIn(200);
+	$("nav").attr("class", "nav-" + page.substring(1));
 }
 
 $(document).ready(function()
 	{
 		$("nav a").click(function()
 		{
-			dest = $(this).attr("href");
+			page = $(this).attr("href");
 			$("content").fadeOut(200, fadeBegin).css("visibility", "hidden");
 			return false;  
 		});
 		
 		$("#select-maps-route").hide();
-		pullData(firebase.database().ref("/vehicles/_TEST_"));
+		pullVehicles(firebase.database().ref("/vehicles"));
+		$("#data-dl").show();
 	});
 
 window.onload = function()
@@ -38,32 +41,59 @@ function googleAPIReady()
 	heatmapLayer.setMap(null);
 }
 
+function pullVehicles(dbRef)
+{
+	dbRef.once("value", function(snap)
+		{
+			snap.forEach(function(vehicleSnap)
+			{
+				var vKey = vehicleSnap.key;
+				vs.push(vKey);
+				$("#select-vehicle").append("<option>" + vKey + "</option>");
+			});
+			
+			$("#select-vehicle").prop("selectedIndex", 1);
+			setVehicle();
+		});
+}
+
 function pullData(vehicleRef)
 {
+	rs = [];
+	heatmap = [];
 	vehicleRef.once("value", function(snap)
-	{
-		snap.forEach(function(routeSnap)
 		{
-			//name of DB directory
-			var rKey = routeSnap.key;
-			if(rKey == "info") return;
-			
-			rs[rKey] = [];
-			routeSnap.forEach(function(pSnap)
+			snap.forEach(function(routeSnap)
 			{
-				p = pSnap.val();
-				rs[rKey].push(p);
-				heatmap.push(new google.maps.LatLng(p.lat, p.lng));
+				//name of DB directory
+				var rKey = routeSnap.key;
+				if(rKey == "info") return;
+				
+				rs[rKey] = [];
+				routeSnap.forEach(function(pSnap)
+				{
+					p = pSnap.val();
+					rs[rKey].push(p);
+					heatmap.push(new google.maps.LatLng(p.lat, p.lng));
+				})
+				
+				$("#select-maps-route").append("<option>" + rKey + "</option>");
+				$("#select-data-route").append("<option>" + rKey + "</option>");
 			})
-			
-			$("#select-maps-route").append("<option>" + rKey + "</option>");
-			$("#select-data-route").append("<option>" + rKey + "</option>");
-		})
-	});
-	setTimeout(function()
-		{
-			drawChart(0, "route" + curDataRoute);
-		}, 500);
+			jsonData = JSON.stringify(snap);
+		});
+}
+
+function setVehicle()
+{
+	$("#select-maps-route").html("<option selected disabled>Choose a recorded route</option>");
+	$("#select-data-route").html("<option selected disabled>Choose a recorded route</option>");
+	$("#select-maps").prop("selectedIndex", 0);
+	setMapOverlay();
+	curMapRoute = undefined;
+	
+	curVehicle = $("#select-vehicle option:selected").text();
+	pullData(firebase.database().ref("/vehicles/" + curVehicle));
 }
 
 //overlay functions
