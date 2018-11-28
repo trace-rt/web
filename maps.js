@@ -4,34 +4,33 @@ var apiKey = "AIzaSyBeSqtpRuQhgqSd3_fH1_xBrW0BuD6S6eE";
 var pIcon = "resources/p-icon.svg";
 var infoWindow, infoShow;
 
-function drawMap(select, routeKey)
+function drawMap(select, index)
 {
+	setMarkers(false);
 	switch(select)
 	{
 		case 0:
-			setMarkers(false);
 			hidePolylines();
-			heatmapLayer.setMap(null);
+			setHeatmap(false);
 			break;
 		case 1:
-			heatmapLayer.setMap(null);
-			runSnapToRoad(rs[routeKey]);
+			setHeatmap(false);
+			runSnapToRoad(rs[index][1]);
 			break;
 		case 2:
-			setMarkers(false);
 			hidePolylines();
-			heatmapLayer.setMap(map);
+			setHeatmap(true);
 	}
 }
 
-// Snap a user-created polyline to roads and draw the snapped path
+//snap a user-created polyline to roads and draw the snapped path
 function runSnapToRoad(path)
 {
 	var pathValues = [];
 	for(var i = 0; i < path.length; i++)
 	{
 		var p = path[i];
-		pathValues.push((new google.maps.LatLng(p.lat, p.lng)).toUrlValue());
+		pathValues.push((new google.maps.LatLng(p.latitude, p.longitude)).toUrlValue());
 	}
 
 	$.get("https://roads.googleapis.com/v1/snapToRoads",
@@ -39,11 +38,11 @@ function runSnapToRoad(path)
 			interpolate: true,
 			key: apiKey,
 			path: pathValues.join("|")
-		}, function(data) { processSnapToRoadResponse(data, path); });
+		}, function(data) { processPath(data, path); });
 }
 
-// Store snapped polyline returned by the snap-to-road service.
-function processSnapToRoadResponse(data, path)
+//store snapped polyline returned by the snap-to-road service
+function processPath(data, path)
 {
 	var snappedCoordinates = [];
 	for(var i = 0; i < data.snappedPoints.length; i++)
@@ -59,7 +58,7 @@ function processSnapToRoadResponse(data, path)
 	{
 		if((index = data.snappedPoints[i].originalIndex))
 		{
-			color = getSpeedColor(path[index].speed);
+			color = getSpeedColor(path[index].vehicle_speed);
 		}
 		
 		var snappedPolyline = new google.maps.Polyline({ path: [snappedCoordinates[i], snappedCoordinates[i + 1]],
@@ -67,6 +66,14 @@ function processSnapToRoadResponse(data, path)
 		polylines.push(snappedPolyline);
 	}
 	setMarkers(true, path, snappedCoordinates, data.snappedPoints);
+	
+	//zoom and center on path
+	var bounds = new google.maps.LatLngBounds();
+	for(var i = 0; i < markers.length; i++)
+	{
+		bounds.extend(markers[i].getPosition());
+	}
+	map.fitBounds(bounds);
 }
 
 //gradient stops: 0-black 30-purple 40-blue 50-green 60-yellow 70-orange 80-red-100
@@ -167,8 +174,8 @@ function setInfoWindow(show, marker)
 	if(show)
 	{
 		infoShow = true;
-		var p = rs["route" + curMapRoute][marker.pIndex];
-		infoWindow.setContent("Speed: " + (p.speed * .621371).toFixed(1) + "mph");
+		var p = rs[curMapRoute][1][marker.pIndex];
+		infoWindow.setContent("Speed: " + (p.vehicle_speed * .621371).toFixed(1) + "mph");
 		infoWindow.open(map, marker);
 		var iw_container = $(".gm-style-iw").parent();
 		iw_container.stop().hide();
@@ -180,5 +187,18 @@ function setInfoWindow(show, marker)
 		var iw_container = $(".gm-style-iw").parent();
 		iw_container.fadeOut(150);
 		setTimeout(function() { if(!infoShow) infoWindow.close(); }, 150);
+	}
+}
+
+function setHeatmap(show)
+{
+	if(show)
+	{
+		heatmapLayer.setData(heatmap);
+		heatmapLayer.setMap(map);
+	}
+	else
+	{
+		heatmapLayer.setMap(null);
 	}
 }

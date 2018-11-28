@@ -1,10 +1,9 @@
 var page = "";
 var jsonData = "";
-var vs  = [];
-var rs = [];
+var vs, rs;
 var heatmap = [];
 var map, routeLayer, heatmapLayer;
-var curVehicle, curMapRoute, curDataRoute;
+var curVehicle, curMapRoute, curDataRoute, curDataMetric = 0;
 
 //dynamic page content
 function fadeBegin()
@@ -37,19 +36,20 @@ window.onload = function()
 function googleAPIReady()
 {
 	infoWindow = new google.maps.InfoWindow;
-	heatmapLayer = new google.maps.visualization.HeatmapLayer({ data: heatmap, map: map });
-	heatmapLayer.setMap(null);
+	heatmapLayer = new google.maps.visualization.HeatmapLayer({ data: [], map: null });
 }
 
 function pullVehicles(dbRef)
 {
+	vs = [];
 	dbRef.once("value", function(snap)
 		{
 			snap.forEach(function(vehicleSnap)
 			{
 				var vKey = vehicleSnap.key;
-				vs.push(vKey);
-				$("#select-vehicle").append("<option>" + vKey + "</option>");
+				var v = vehicleSnap.val();
+				vs.push([vKey, v]);
+				$("#select-vehicle").append("<option>" + v.info.year + " " + v.info.make + " " + v.info.model + "</option>");
 			});
 			
 			$("#select-vehicle").prop("selectedIndex", 1);
@@ -69,17 +69,19 @@ function pullData(vehicleRef)
 				var rKey = routeSnap.key;
 				if(rKey == "info") return;
 				
-				rs[rKey] = [];
+				var ps = [];
 				routeSnap.forEach(function(pSnap)
 				{
-					p = pSnap.val();
-					rs[rKey].push(p);
-					heatmap.push(new google.maps.LatLng(p.lat, p.lng));
-				})
+					var p = pSnap.val();
+					ps.push(p);
+					heatmap.push(new google.maps.LatLng(p.latitude, p.longitude));
+				});
+				rs.push([rKey, ps]);
 				
-				$("#select-maps-route").append("<option>" + rKey + "</option>");
-				$("#select-data-route").append("<option>" + rKey + "</option>");
-			})
+				var rName = (ps.length > 0 && ps[0].time != undefined ? (new Date(ps[0].time)).toLocaleString() : rKey);
+				$("#select-maps-route").append("<option>" + rName + "</option>");
+				$("#select-data-route").append("<option>" + rName + "</option>");
+			});
 			jsonData = JSON.stringify(snap);
 		});
 }
@@ -92,8 +94,8 @@ function setVehicle()
 	setMapOverlay();
 	curMapRoute = undefined;
 	
-	curVehicle = $("#select-vehicle option:selected").text();
-	pullData(firebase.database().ref("/vehicles/" + curVehicle));
+	curVehicle = $("#select-vehicle option:selected").index();
+	pullData(firebase.database().ref("/vehicles/" + vs[curVehicle][0]));
 }
 
 //overlay functions
@@ -107,7 +109,7 @@ function setMapOverlay()
 			break;
 		case "Route":
 			$("#select-maps-route").show(200);
-			if(curMapRoute != undefined) drawMap(1, "route" + curMapRoute);
+			if(curMapRoute != undefined) drawMap(1, curMapRoute);
 			break;
 		case "Heatmap":
 			$("#select-maps-route").hide(200);
@@ -118,8 +120,8 @@ function setMapOverlay()
 function setMapRoute()
 {
 	markers = [];
-	curMapRoute = $("#select-maps option:selected").index() - 1;
-	drawMap(1, "route" + curMapRoute);
+	curMapRoute = $("#select-maps-route option:selected").index() - 1;
+	drawMap(1, curMapRoute);
 }
 
 //chart functions
@@ -129,18 +131,26 @@ function setDataChart()
 	{
 		case "Route Metrics":
 			$("#select-data-route").show(200);
-			if(curDataRoute != undefined) drawChart(0, "route" + curDataRoute);
+			$("#select-data-metric").show(200);
+			if(curDataRoute != undefined) drawChart(0, curDataRoute);
 			break;
 		case "Calendar":
 			$("#select-data-route").hide(200);
+			$("#select-data-metric").hide(200);
 			drawChart(1);
 	}
 }
 
 function setDataRoute()
 {
-	curDataRoute = $("#select-data option:selected").index();
-	drawChart(0, "route" + curDataRoute);
+	curDataRoute = $("#select-data-route option:selected").index() - 1;
+	drawChart(0, curDataRoute, curDataMetric);
+}
+
+function setDataMetric()
+{
+	curDataMetric = $("#select-data-metric option:selected").index();
+	drawChart(0, curDataRoute, curDataMetric);
 }
 
 //UI guide

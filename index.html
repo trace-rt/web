@@ -60,6 +60,9 @@
 			</content>
 			<content id="data">
 				<h1>Data <button id="data-dl" type="button" onclick="download()">Download JSON</button></h1>
+				
+				<div id="graph1" class="aGraph" style="position:relative;width:0px;height:0px"></div>
+				
 				<div class="chart"></div>
 				<div class="select-container">
 					<div>Info</div>
@@ -69,6 +72,13 @@
 					</select>
 					<select id="select-data-route" onchange="setDataRoute()">
 						<option selected disabled>Choose a recorded route</option>
+					</select>
+					<select id="select-data-metric" onchange="setDataMetric()">
+						<option selected>Speed</option>
+						<option>RPMs</option>
+						<option>Engine Load</option>
+						<option>Intake Pressure</option>
+						<option>Engine Temperature</option>
 					</select>
 				</div>
 				<p>
