@@ -38,7 +38,11 @@
 			<content id="maps" style="display: block; visibility: visible">
 				<h1>Maps</h1>
 				<div class="map-container">
-					<div id="map" class="inset-shadow"></div>
+					<div id="map" class="inset-shadow">
+						<div class="inset-img">
+							<img src="resources/map.svg"></img>
+						</div>
+					</div>
 					<div id="gmol-bar">
 						<input type="text" id="gmol-autoc"/>
 					</div>
@@ -60,10 +64,11 @@
 			</content>
 			<content id="data">
 				<h1>Data <button id="data-dl" type="button" onclick="download()">Download JSON</button></h1>
-				
-				<div id="graph1" class="aGraph" style="position:relative;width:0px;height:0px"></div>
-				
-				<div class="chart"></div>
+				<div id="chart" class="inset-shadow">
+					<div class="inset-img">
+						<img src="resources/chart.svg"></img>
+					</div>
+				</div>
 				<div class="select-container">
 					<div>Info</div>
 					<select id="select-data" onchange="setDataChart()">
@@ -74,11 +79,11 @@
 						<option selected disabled>Choose a recorded route</option>
 					</select>
 					<select id="select-data-metric" onchange="setDataMetric()">
-						<option selected>Speed</option>
-						<option>RPMs</option>
-						<option>Engine Load</option>
-						<option>Intake Pressure</option>
-						<option>Engine Temperature</option>
+						<option selected disabled>Speed</option>
+						<option disabled>RPMs</option>
+						<option disabled>Engine Load</option>
+						<option disabled>Intake Pressure</option>
+						<option disabled>Engine Temperature</option>
 					</select>
 				</div>
 				<p>
@@ -129,7 +134,9 @@
 		</div>
 		<footer>
 			<div>
-				<select id="select-vehicle" onchange="setVehicle()"></select>
+				<select id="select-vehicle" onchange="setVehicle()">
+					<option selected disabled>No Vehicle Data Available</option>
+				</select>
 			</div>
 			<div class="signin-container">
 				<div class="g-signin2 inset-shadow" data-width="100" data-height="30" data-onsuccess="onSignIn()"></div>

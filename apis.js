@@ -11,22 +11,29 @@ firebase.initializeApp(config);
 
 //Google SignIn
 var googleUser = {};
-var startApp = function()
-	{
-		gapi.load("auth2", function()
-		{
-			// Retrieve the singleton for the GoogleAuth library and set up the client.
-			auth2 = gapi.auth2.init({ client_id: "618088048289-6ojbgiu7u1pc0vl0rkh04kes8mb6ijh8.apps.googleusercontent.com",
-			cookiepolicy: "single_host_origin",
-			// Request scopes in addition to 'profile' and 'email'
-			//scope: 'additional_scope'
-			});
-		});
-	};
-
-function onSignIn()
+function startApp()
 {
-}
+	gapi.load("auth2", function()
+		{
+			//retrieve the singleton for the GoogleAuth library and set up the client
+			auth2 = gapi.auth2.init({ client_id: "618088048289-6ojbgiu7u1pc0vl0rkh04kes8mb6ijh8.apps.googleusercontent.com",
+				cookiepolicy: "single_host_origin" });
+		});
+	
+	var provider = new firebase.auth.GoogleAuthProvider();
+	provider.addScope("https://www.googleapis.com/auth/calendar");
+	firebase.auth().signInWithPopup(provider).then(function(result)
+		{
+			//Google access token
+			var token = result.credential.accessToken;
+			var user = result.user;
+		}).catch(function(error)
+		{
+			//handle Errors here
+			console.log("Invalid login credentials.\n\nError Code: " + error.code + "\nMessage: " + error.message + "\nEmail: " + error.email +
+				"\nAuth Credential: " + error.credential);
+		});
+};
 
 //Google Maps
 var map, infoWindow;

@@ -114,6 +114,7 @@ nav:after
 
 .inset-shadow
 {
+	background: #ccc;
 	box-shadow: inset 0 0 4px #333;
 	-moz-box-shadow: inset 0 0 4px #333;
 	-webkit-box-shadow: inset 0 0 4px #333;
@@ -147,6 +148,13 @@ h1, h2, h3
 	padding: 20px 40px;
 	font-family: Verdana, Geneva, sans-serif;
 	color: black;
+}
+
+select
+{
+	height: 20px;
+	border-radius: 2px;
+    background: linear-gradient(to right, #f7f7f7, #eee);
 }
 
 p
@@ -190,16 +198,13 @@ button:after
     clear: both;
 }
 
-.chart
+.inset-img
 {
-	width: 1000px;
-	height: 500px;
-	margin: 20px 0px;
-	padding: 0px;
-	background-color: #eee;
-	fill: none;
-	overflow-x: scroll;
-	user-select: none;
+	display: table-cell;
+    height: 500px;
+    width: 1000px;
+    vertical-align: middle;
+    text-align: center;
 }
 
 .bar
@@ -279,7 +284,7 @@ footer div
 	float: left;
 	width: 40%;
 	height: 100%;
-	padding: 8px 0px;
+	padding: 9px 0px;
     color: white;
 }
 
@@ -354,16 +359,15 @@ footer a:hover > img
 .signin-container
 {
 	float: right;
-	padding: 7px 0px;
+	padding: 6px 0px;
 }
 
 .signin-container div
 {
 	float: right;
 	width: 100px;
-	height: 25px;
+	height: 28px;
 	padding: 0px;
-	background: #ccc;
 }
 
 .canvas-bg
@@ -379,7 +383,6 @@ footer a:hover > img
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background: #999;
 	overflow: auto;
 }
 
@@ -398,6 +401,16 @@ footer a:hover > img
 {
 	width: 100%;
 	box-sizing: border-box;
+}
+
+#chart
+{
+	width: 1000px;
+	height: 500px;
+	margin: 20px 0px;
+	padding: 0px;
+	fill: none;
+	user-select: none;
 }
 
 /* responsive layout for small screens */

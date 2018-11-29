@@ -22,7 +22,6 @@ $(document).ready(function()
 		});
 		
 		$("#select-maps-route").hide();
-		pullVehicles(firebase.database().ref("/vehicles"));
 		$("#data-dl").show();
 	});
 
@@ -35,12 +34,19 @@ window.onload = function()
 //page event callbacks
 function googleAPIReady()
 {
+	startApp();
 	infoWindow = new google.maps.InfoWindow;
 	heatmapLayer = new google.maps.visualization.HeatmapLayer({ data: [], map: null });
 }
 
+function onSignIn()
+{
+	pullVehicles(firebase.database().ref("/vehicles"));
+}
+
 function pullVehicles(dbRef)
 {
+	$("#select-vehicle").html("")
 	vs = [];
 	dbRef.once("value", function(snap)
 		{
@@ -55,6 +61,11 @@ function pullVehicles(dbRef)
 			$("#select-vehicle").prop("selectedIndex", 1);
 			setVehicle();
 		});
+	if(vs.length == 0)
+	{
+		$("#select-vehicle").append("<option selected disabled>No Vehicle Data Available</option>");
+	}
+	$("#select-data-metric option").each(function(){ this.prop("disabled", true); });
 }
 
 function pullData(vehicleRef)
@@ -144,6 +155,7 @@ function setDataChart()
 function setDataRoute()
 {
 	curDataRoute = $("#select-data-route option:selected").index() - 1;
+	$("#select-data-metric option").each(function(){ this.prop("disabled", false); });
 	drawChart(0, curDataRoute, curDataMetric);
 }
 

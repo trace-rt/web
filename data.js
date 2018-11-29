@@ -11,16 +11,17 @@ function download()
 function drawChart(select, index, metric)
 {
 	//clear div
-	$(".chart").html("");
+	$("#chart").html("").removeClass("inset-shadow");
+	$("#chart").css("background-color", "#eee");
 	
 	switch(select)
 	{
 		case 0:
-			$(".chart").css("overflow-x", "scroll");
+			$("#chart").css("overflow-x", "scroll");
 			metrics(rs[index][1], metric);
 			break;
 		case 1:
-			$(".chart").css("overflow-x", "auto");
+			$("#chart").css("overflow-x", "auto");
 			calendar();
 	}
 	
@@ -140,7 +141,7 @@ function drawChart(select, index, metric)
 			currentUserPositionX = -1;
 		}
 		
-		var svg = d3.select(".chart").append("svg")
+		var svg = d3.select("#chart").append("svg")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
 			.append("g")
@@ -212,6 +213,6 @@ function drawChart(select, index, metric)
 	
 	function calendar()
 	{
-		$(".chart").html("<iframe src=\"https://calendar.google.com/calendar/embed?src=aot7pfqu9kq8oeg3tln9c3umlc%40group.calendar.google.com&ctz=America%2FChicago\" style=\"border: 0\" width=\"1000\" height=\"490\" frameborder=\"0\" scrolling=\"no\"></iframe>");
+		$("#chart").html("<iframe src=\"https://calendar.google.com/calendar/embed?src=aot7pfqu9kq8oeg3tln9c3umlc%40group.calendar.google.com&ctz=America%2FChicago\" style=\"border: 0\" width=\"1000\" height=\"494\" frameborder=\"0\" scrolling=\"no\"></iframe>");
 	}
 }
