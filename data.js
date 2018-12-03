@@ -2,7 +2,7 @@ function download()
 {
 	var data = "text/json;charset=utf-8," + encodeURIComponent(jsonData);
 	var dlAnchor = document.createElement("a");
-	$(dlAnchor).attr("href", "data:" + data).attr("download", curVehicle + ".json").hide();
+	$(dlAnchor).attr("href", "data:" + data).attr("download", vs[curVehicle][0] + ".json").hide();
 	$("body").append(dlAnchor);
 	dlAnchor.click();
 	dlAnchor.remove();
@@ -29,7 +29,7 @@ function drawChart(select, index, metric)
 	{
 		var len = input.length;
 		var data = [{ name: "Speed", metric: "vehicle_speed", mult: .621371 },
-			{ name: "RPMs",  metric: "engine_speed", mult: .03 },
+			{ name: "RPMs",  metric: "engine_speed", mult: .0125 },
 			{ name: "Engine Load", metric: "load" },
 			{ name: "Intake Pressure", metric: "intake" },
 			{ name: "Engine Temp", metric: "temp" }]
@@ -41,19 +41,19 @@ function drawChart(select, index, metric)
 				}), m;
 			});
 		
-		var margin = { top: 20, right: 20, bottom: 20, left: 30 },
+		var margin = { top: 20, right: 20, bottom: 20, left: 40 },
 			width = Math.max(1000, len * 10) - margin.left - margin.right,
 			height = 475 - margin.top - margin.bottom;
 		
 		var container = $("#graph1");
 		// functions we use to display and interact with the graphs and lines
 		var graph, x, y, xAxis, yAxis;
-		var hoverContainer, hoverLine, hoverLineXOffset, hoverLineYOffset, hoverLineGroup;
+		//var hoverContainer, hoverLine, hoverLineXOffset, hoverLineYOffset, hoverLineGroup;
 		var transitionDuration = 300;
-		var margins = [20, 20, 20, 30];
+		var margins = [20, 20, 20, 40];
 		
 		// make sure to use offset() and not position() as we want it relative to the document, not its parent
-		hoverLineXOffset = margin.left + container.offset().left;
+		/*hoverLineXOffset = margin.left + container.offset().left;
 		hoverLineYOffset = margin.top + container.offset().top;
 		
 		function redrawAxes(withTransition)
@@ -139,7 +139,7 @@ function drawChart(select, index, metric)
 			
 			setValueLabelsToLatest();
 			currentUserPositionX = -1;
-		}
+		}*/
 		
 		var svg = d3.select("#chart").append("svg")
 			.attr("width", width + margin.left + margin.right)
@@ -153,6 +153,10 @@ function drawChart(select, index, metric)
 
 		var y = d3.scaleLinear()
 			.domain([0, 100])
+			.range([height, 0]);
+		
+		var yAxisRPM = d3.scaleLinear()
+			.domain([0, 8000])
 			.range([height, 0]);
 
 		var colors = d3.schemeCategory10;
@@ -171,7 +175,7 @@ function drawChart(select, index, metric)
 
 		svg.append("g")
 			.attr("class", "axis axis--y")
-			.call(d3.axisLeft(y))
+			.call(metric == 1 ? d3.axisLeft(yAxisRPM) : d3.axisLeft(y))
 			.selectAll(".tick:last-of-type")
 			.append("text")
 			.attr("class", "axis-title")
@@ -180,11 +184,11 @@ function drawChart(select, index, metric)
 		
 		// add a 'hover' line that we'll show as a user moves their mouse (or finger)
 		// so we can use it to show detailed values of each line
-		hoverLine = svg.append("g")
+		/*hoverLine = svg.append("g")
 			.attr("class", "hover-line")
 			.append("svg:line")
 			.attr("x1", 10).attr("x2", 10) // vertical line so same value on each
-			.attr("y1", 0).attr("y2", height); // top to bottom	
+			.attr("y1", 0).attr("y2", height);*/ // top to bottom	
 		// hide it by default
 		//hoverLine.classed("hide", true);
 

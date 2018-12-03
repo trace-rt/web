@@ -349,6 +349,14 @@ footer a:hover > img
 	animation: fadeout 1s;
 }
 
+.modal div
+{
+	position: absolute;
+	width: 15%;
+	height: auto;
+	padding: 10px;
+}
+
 .info img:hover ~ .modal
 {
 	display: block;
@@ -368,6 +376,11 @@ footer a:hover > img
 	width: 100px;
 	height: 28px;
 	padding: 0px;
+}
+
+.signin-container div div
+{
+	background: #ccc;
 }
 
 .canvas-bg
@@ -411,6 +424,24 @@ footer a:hover > img
 	padding: 0px;
 	fill: none;
 	user-select: none;
+}
+
+#uig1
+{
+	top: 85px;
+	right: 10px;
+}
+
+#uig2
+{
+	bottom: 40px;
+	left: 10px;
+}
+
+#uig3
+{
+	bottom: 40px;
+	right: 10px;
 }
 
 /* responsive layout for small screens */

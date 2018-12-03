@@ -27,12 +27,15 @@ function startApp()
 			//Google access token
 			var token = result.credential.accessToken;
 			var user = result.user;
+			//console.log(user, token);
 		}).catch(function(error)
 		{
 			//handle Errors here
 			console.log("Invalid login credentials.\n\nError Code: " + error.code + "\nMessage: " + error.message + "\nEmail: " + error.email +
 				"\nAuth Credential: " + error.credential);
 		});
+	
+	onSignIn();
 };
 
 //Google Maps

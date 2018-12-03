@@ -34,7 +34,7 @@ window.onload = function()
 //page event callbacks
 function googleAPIReady()
 {
-	startApp();
+	$("g-signin2").on("click", function(){ startApp(); });
 	infoWindow = new google.maps.InfoWindow;
 	heatmapLayer = new google.maps.visualization.HeatmapLayer({ data: [], map: null });
 }
@@ -65,7 +65,7 @@ function pullVehicles(dbRef)
 	{
 		$("#select-vehicle").append("<option selected disabled>No Vehicle Data Available</option>");
 	}
-	$("#select-data-metric option").each(function(){ this.prop("disabled", true); });
+	$("#select-data-metric option").each(function(){ $(this).prop("disabled", true); });
 }
 
 function pullData(vehicleRef)
@@ -78,7 +78,6 @@ function pullData(vehicleRef)
 			{
 				//name of DB directory
 				var rKey = routeSnap.key;
-				if(rKey == "info") return;
 				
 				var ps = [];
 				routeSnap.forEach(function(pSnap)
@@ -89,7 +88,7 @@ function pullData(vehicleRef)
 				});
 				rs.push([rKey, ps]);
 				
-				var rName = (ps.length > 0 && ps[0].time != undefined ? (new Date(ps[0].time)).toLocaleString() : rKey);
+				var rName = (ps.length > 0 && ps[0].time != undefined ? (new Date(ps[0].timestamp)).toLocaleString() : rKey);
 				$("#select-maps-route").append("<option>" + rName + "</option>");
 				$("#select-data-route").append("<option>" + rName + "</option>");
 			});
@@ -105,8 +104,8 @@ function setVehicle()
 	setMapOverlay();
 	curMapRoute = undefined;
 	
-	curVehicle = $("#select-vehicle option:selected").index();
-	pullData(firebase.database().ref("/vehicles/" + vs[curVehicle][0]));
+	curVehicle = $("#select-vehicle option:selected").index() - 1;
+	pullData(firebase.database().ref("/vehicles/" + vs[curVehicle][0] + "/routes/"));
 }
 
 //overlay functions
@@ -155,7 +154,7 @@ function setDataChart()
 function setDataRoute()
 {
 	curDataRoute = $("#select-data-route option:selected").index() - 1;
-	$("#select-data-metric option").each(function(){ this.prop("disabled", false); });
+	$("#select-data-metric option").each(function(i){ $(this).prop("disabled", false); });
 	drawChart(0, curDataRoute, curDataMetric);
 }
 
