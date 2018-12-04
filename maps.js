@@ -175,7 +175,8 @@ function setInfoWindow(show, marker)
 	{
 		infoShow = true;
 		var p = rs[curMapRoute][1][marker.pIndex];
-		infoWindow.setContent("Speed: " + (p.vehicle_speed * .621371).toFixed(1) + "mph");
+		infoWindow.setContent("" + (p.vehicle_speed ? "Speed: " + (p.vehicle_speed * .621371).toFixed(1) + "mph" : "") +
+			(p.engine_speed ? "<br/>RPMs: " + Math.round(p.engine_speed) : ""));
 		infoWindow.open(map, marker);
 		var iw_container = $(".gm-style-iw").parent();
 		iw_container.stop().hide();

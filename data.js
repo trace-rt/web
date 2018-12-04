@@ -46,100 +46,9 @@ function drawChart(select, index, metric)
 			height = 475 - margin.top - margin.bottom;
 		
 		var container = $("#graph1");
-		// functions we use to display and interact with the graphs and lines
 		var graph, x, y, xAxis, yAxis;
-		//var hoverContainer, hoverLine, hoverLineXOffset, hoverLineYOffset, hoverLineGroup;
 		var transitionDuration = 300;
 		var margins = [20, 20, 20, 40];
-		
-		// make sure to use offset() and not position() as we want it relative to the document, not its parent
-		/*hoverLineXOffset = margin.left + container.offset().left;
-		hoverLineYOffset = margin.top + container.offset().top;
-		
-		function redrawAxes(withTransition)
-		{
-			initY();
-			initX();
-			
-			if(withTransition)
-			{
-				// slide x-axis to updated location
-				graph.selectAll("g .x.axis").transition()
-					.duration(transitionDuration)
-					.ease("linear")
-					.call(xAxis);
-			
-				// slide y-axis to updated location
-				graph.selectAll("g .y.axis").transition()
-					.duration(transitionDuration)
-					.ease("linear")
-					.call(yAxisLeft);
-			}
-			else
-			{
-				// slide x-axis to updated location
-				graph.selectAll("g .x.axis")
-					.call(xAxis);
-			
-				// slide y-axis to updated location
-				graph.selectAll("g .y.axis")
-					.call(yAxisLeft);
-			}
-		}
-		
-		function redrawLines(withTransition)
-		{
-			// redraw lines
-			if(withTransition)
-			{
-				graph.selectAll("g .lines path").transition()
-					.duration(transitionDuration)
-					.ease("linear")
-					.attr("d", lineFunction)
-					.attr("transform", null);
-			}
-			else
-			{
-				graph.selectAll("g .lines path")
-					.attr("d", lineFunction)
-					.attr("transform", null);
-			}
-		}
-		
-		$(container).mouseleave(function(event) { handleMouseOutGraph(event); });
-		
-		$(container).mousemove(function(event)
-			{
-				var mouseX = event.pageX - hoverLineXOffset;
-				var mouseY = event.pageY - hoverLineYOffset;
-				
-				//debug("MouseOver graph [" + containerId + "] => x: " + mouseX + " y: " + mouseY + "  height: " + h + " event.clientY: " + event.clientY + " offsetY: " + event.offsetY + " pageY: " + event.pageY + " hoverLineYOffset: " + hoverLineYOffset)
-				if(mouseX >= 0 && mouseX <= w && mouseY >= 0 && mouseY <= h)
-				{
-					// show the hover line
-					hoverLine.classed("hide", false);
-
-					// set position of hoverLine
-					hoverLine.attr("x1", mouseX).attr("x2", mouseX);
-					
-					displayValueLabelsForPositionX(mouseX);
-					currentUserPositionX = mouseX;
-				}
-				else
-				{
-					// proactively act as if we've left the area since we're out of the bounds we want
-					handleMouseOutGraph(event)
-				}
-			});
-		
-		function handleMouseOutGraph(event)
-		{	
-			// hide the hover-line
-			hoverLine.classed("hide", true);
-			
-			setValueLabelsToLatest();
-			currentUserPositionX = -1;
-		}*/
 		
 		var svg = d3.select("#chart").append("svg")
 			.attr("width", width + margin.left + margin.right)
@@ -182,15 +91,22 @@ function drawChart(select, index, metric)
 			.attr("x", 3)
 			.attr("dy", ".32em")
 		
-		// add a 'hover' line that we'll show as a user moves their mouse (or finger)
-		// so we can use it to show detailed values of each line
-		/*hoverLine = svg.append("g")
-			.attr("class", "hover-line")
-			.append("svg:line")
-			.attr("x1", 10).attr("x2", 10) // vertical line so same value on each
-			.attr("y1", 0).attr("y2", height);*/ // top to bottom	
-		// hide it by default
-		//hoverLine.classed("hide", true);
+		// add the Y gridlines
+		function gridlines(n)
+		{
+			svg.append("g")			
+				.attr("class", "grid")
+				.call(d3.axisLeft(y).ticks(n).tickSize(-width).tickFormat(""));
+		}
+		
+		if(metric == 1)
+		{
+			gridlines(4);
+		}
+		else
+		{
+			gridlines(5);
+		}
 
 		var g = svg.selectAll(".line")
 			.data(data)
